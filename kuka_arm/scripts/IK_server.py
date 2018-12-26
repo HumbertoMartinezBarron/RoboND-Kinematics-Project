@@ -8,7 +8,7 @@
 # All Rights Reserved.
 
 # Author: Harsh Pandya
-
+# Modified by: Humberto MartinezBarron
 # import modules
 import rospy
 import tf
@@ -215,8 +215,6 @@ def handle_calculate_IK(req):
             new_theta2 = pi/2 - xi_2 - 0.036
             
             # Turns out, using .inv("LU") is extremely inaccurate; in fact, using the transpose does the whole trick!
-            # (saw this tip in the Slack community)
-            # Now, most of the time there will be a ~ 3.67e-5 total error! :-0
             S = R0_3.evalf(subs={theta0: new_theta0, theta1: new_theta1, theta2: new_theta2}).T * Rrpy
             
             [r13, r23, r33] = S[0:3,2]
@@ -224,15 +222,6 @@ def handle_calculate_IK(req):
             r22 = S[1,1]
             
             new_theta4 = atan2(sqrt(r13**2 + r33**2), r23)
-            
-            # Here's one of multiple attempts to bring down the error! Never really worked, but I thought this could help
-            # with multiple-solution angles. XD
-            
-            #if sin(new_theta4) < 0:
-            #	new_theta3 = atan2(-r33, r13)
-            #	new_theta5 = atan2(r22, -r21)
-            #	rospy.loginfo("Entered the if statement.")
-            #else:
             new_theta3 = atan2(r33, -r13)
             new_theta5 = atan2(-r22, r21)
             
@@ -240,23 +229,7 @@ def handle_calculate_IK(req):
             pose = T_final.evalf(subs={theta0: new_theta0, theta1: new_theta1, theta2: new_theta2, theta3: new_theta3, theta4: new_theta4, theta5: new_theta5, theta6: 0})
             error = sqrt((pose[0, 3] - px)**2 + (pose[1, 3] - py)**2 + (pose[2, 3] - pz)**2)
             
-            ######################### NONE of this is necessary anymore! Thanks to the precision of the transpose, is always << 0.1
-            
-            # I have set a 0.1-unit error tolerance. 
-            # If our ee position is outside this tolerance, we will use the previous last three angles.
-            # The best practice would be to try the rest of the possible solutions for each angle, but it would make this code
-            # painfully slow!
-            # This implementation brings the error down to < 0.1 units in ~94.4% of cases.
-            #if error >= 0.1:
-            #	q4, q5, q6 = previous_orientation
-            #	pose = T_final.evalf(subs={theta0: new_theta0, theta1: new_theta1, theta2: new_theta2, theta3: q4, theta4: q5, theta5: q6, theta6: 0})
-            #	new_error = sqrt((pose[0, 3] - px)**2 + (pose[1, 3] - py)**2 + (pose[2, 3] - pz)**2)
-            #	if(new_error < error):
-            #		error = new_error
-            #		new_theta3, new_theta4, new_theta5 = (q4, q5, q6)
             rospy.loginfo("Total error: " + str(error))
-            #previous_orientation = (new_theta3, new_theta4, new_theta5)
-            ###
             
             # Populate response for the IK request
             # In the next line replace theta1,theta2...,theta6 by your joint angle variables
