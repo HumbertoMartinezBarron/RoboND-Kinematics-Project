@@ -7,7 +7,7 @@ By: Humberto MartinezBarron
 2. Kinematic Analysis
 3. Project implementation
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/hi.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/hi.jpg)
 
 ## Part 1.
 ### Writeup!
@@ -23,36 +23,36 @@ Hey there! In this writeup, I'll go through the steps of the project and the way
 
 - That's my notebook right there! Sorry about the handwriting, messiness, etc... XD
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_004445.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_004445.jpg)
 
 ## Creating transformation matrices
 
 In order to obtain each of the T's, we need to multiply the rotation matrices and the translation matrices. Thus, we obtain a general T for each i. Now we just need to substitute the values for each joint! :)
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_011537.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_011537.jpg)
 
 So, at the end, the product of all the individual homogenous transforms gives us the total homogenous transform between the ```base_link``` and the ```gripper_link```.
 
 If we wish to obtain its matrix using only the end-effector poses, we would get the total transformation matrix as shown here!
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102448.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102448.jpg)
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102454.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102454.jpg)
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102506.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102506.jpg)
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102526.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG_20170928_102526.jpg)
 
 ## Decoupling IK!
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/wal_e.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/wal_e.jpg)
 
 So, since all robotic arms are different and we need to consider our Kuka arm's configuration in order to figure out the angles for a given EE position and orientation, we are solving two separate problems:
 
 - First three angles (__thetas__ 0, 1, and 2 in the code!).
 - Last three angles (__thetas__ 3, 4, and 5 in the code!).
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG-20170925-WA0009.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/IMG-20170925-WA0009.jpg)
 
 In the drawing, we get to see the Cosine Laws in action! After assigning sides a, b, and c, all that's left is to find the angles of the triangle. However, we must be careful! These are NOT the thetas we are looking for (believe me, it will make your errors skyrocket and you will never reach the goal!).
 
@@ -141,4 +141,4 @@ It was not easy, but this project was eye-opening for me to the world of robotic
 
 # Thanks! :)
 
-!(https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/tony_stark.jpg)
+![](https://github.com/HumbertoMartinezBarron/RoboND-Kinematics-Project/blob/master/imgs/tony_stark.jpg)
